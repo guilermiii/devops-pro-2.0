@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simulador-do-caos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simulador-do-caos
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: simulador-do-caos
+    spec:
+      containers:
+      - image: nginx:alpine
+        name: simulador-do-caos
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          tcpSocket:
+            port: 81
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 2
+          successThreshold: 1 #nem precisa declar, com liveness sempre é 1, se mudar aqui o k8s nem permite aplicar
+          timeoutSeconds: 3 # timeout da requisição
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simulador-do-caos
+spec:
+  selector:
+    app: simulador-do-caos
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 3000
+    name: http
+    protocol: TCP
+    nodePort: 30000
+

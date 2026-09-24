@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meu-deployment
+spec:
+  replicas: 30
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: kubedevio/web-color:green
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webcolor
+spec:
+  selector:
+    app: web
+  ports:
+    - port: 80 #porta exposta para fora (externa)
+      targetPort: 80 # redirecionamento para a porta do pod (interna)
+      name: http
+      protocol: TCP
+  type: NodePort

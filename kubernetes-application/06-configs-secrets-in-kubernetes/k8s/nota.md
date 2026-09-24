@@ -1,0 +1,1 @@
+OBS: optei por nao fazer a referencia do secret keysecret ref devido a ser obvio que nao teria casos de uso, o proprio secret geralmente eh usado com vaults como o da hashicorp ou a alternativa openBao 

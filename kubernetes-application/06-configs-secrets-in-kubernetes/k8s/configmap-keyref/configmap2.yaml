@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  AAPP_NAME: "aplicacao com config map keyref"
+  AAPP_VERSION: "166.0"
+  AAPP_AUTHOR: "guilherme"

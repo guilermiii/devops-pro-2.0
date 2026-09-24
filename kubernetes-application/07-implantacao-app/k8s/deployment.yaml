@@ -1,0 +1,80 @@
+## deployment da aplicação
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-kube-news
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: kube-news
+  template:
+    metadata:
+      labels:
+        app: kube-news
+    spec:
+      containers:
+        - name: kube-news
+          image: devguina/kube-news:v1
+          resources:
+            limits:
+              memory: "300Mi"
+              cpu: "1.0"
+          ports:
+          - containerPort: 8080
+          envFrom:
+          - secretRef:
+              name: app-kubenews-secret
+
+---
+## service da applicação
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-kube-news
+spec:
+  selector:
+    app: kube-news #match de labels
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 8080
+      name: http
+      protocol: TCP
+      nodePort: 30000
+---
+#deployment do banco
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-kube-news
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres-kubenews
+          image: postgres:15.0
+          ports:
+            - containerPort: 5432
+          envFrom:
+          - secretRef:
+              name: app-kubenews-secret
+---
+## service do Postgresql
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-kube-news
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: exec
+  labels:
+    app: exec
+spec:
+  containers:
+  - name: exec
+    image: busybox
+    command: # => entrypoint
+      - /bin/sh
+    args: # => CMD
+      - touch /tmp/teste.txt; sleep 120;
+    restartPolicy: Never
