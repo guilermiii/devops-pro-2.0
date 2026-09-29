@@ -18,18 +18,18 @@ spec:
         name: simulador-do-caos
         ports:
         - containerPort: 3000
-        livenessProbe:
+        readinessProbe:
           httpGet:
             port: 3000
-            path: /health
+            path: /ready
             httpHeaders:
               - name: token
                 value: aslkjdklasjdlas
-          initialDelaySeconds: 5
-          periodSeconds: 5
+          initialDelaySeconds: 3
+          periodSeconds: 4
           failureThreshold: 2
-          successThreshold: 1 #nem precisa declar, com liveness sempre é 1, se mudar aqui o k8s nem permite aplicar
-          timeoutSeconds: 3 # timeout da requisição
+          successThreshold: 2
+          timeoutSeconds: 10 # timeout da requisição
 
 ---
 apiVersion: v1
