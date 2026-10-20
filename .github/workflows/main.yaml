@@ -11,5 +11,5 @@ jobs:
       - name: "Minha primeira ação"
         run: echo "Hello World!"
         run: | # esse cara me permite escrever mais de um comando.
-        echo "Criei o meu primeiro Workflow"
-        echo "foi muito legal!!!!!"
+          echo "Criei o meu primeiro Workflow"
+          echo "foi muito legal!!!!!"
