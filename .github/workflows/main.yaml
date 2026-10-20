@@ -10,6 +10,7 @@ jobs:
     steps: # passos de execucao, aqui entra as actions
       - name: "Minha primeira ação"
         run: echo "Hello World!"
+      - name: "Minha segunda ação"
         run: | # esse cara me permite escrever mais de um comando.
           echo "Criei o meu primeiro Workflow"
           echo "foi muito legal!!!!!"
