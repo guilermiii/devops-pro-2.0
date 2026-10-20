@@ -1,10 +1,15 @@
-name: Workflow Evento
+name: primeira-pipeline
 on:
   push:
-    branches: ["main", "feature/*"]
+    branches: ["main"]
+  workflow_dispatch: # permite executar manualmente no painel esse workflow
 jobs:
-  teste:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Action de Teste
-        run: echo " Action  executada apenas em main e features"
+  primeiro-job:
+    name: "Meu primeiro Job"
+    runs-on: ubuntu-latest # tem linux/macos/windows/self-hosted
+    steps: # passos de execucao, aqui entra as actions
+      - name: "Minha primeira ação"
+        run: echo "Hello World!"
+        run: | # esse cara me permite escrever mais de um comando.
+        echo "Criei o meu primeiro Workflow"
+        echo "foi muito legal!!!!!"
