@@ -14,7 +14,7 @@ jobs:
         run: | # esse cara me permite escrever mais de um comando.
           echo "Criei o meu primeiro Workflow"
           echo "foi muito legal!!!!!"
-      - name: "script Python"t
+      - name: "script Python"
         run: |
           variavel = "Hello World in Python"
           print (variavel)
